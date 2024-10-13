@@ -136,8 +136,8 @@ def dynamic_huffman_encode(text, symbols):
     huffman_tree.build_initial_tree()
     encode = ''
     for char in text:
-        windows_1252_char = char.encode('windows-1252')
-        for byte_char in windows_1252_char:
+        ISO_8859_char = char.encode('ISO 8859-1')
+        for byte_char in ISO_8859_char:
             byte_str = format(byte_char, '08b')  # Convertir byte a cadena binaria
             if byte_str not in huffman_tree.char_to_node:
                 encode += encode_path_to_root(huffman_tree.root, huffman_tree.char_to_node['imaginario'])
@@ -175,5 +175,5 @@ def dynamic_huffman_decode(encoded_text, symbols):
             byte_char = int(byte_str, 2)
             huffman_tree.update_tree(byte_str, symbols)
             decoded_text += bytes([byte_char])
-    #print(decoded_text.decode('windows-1252'))
+    #print(decoded_text.decode('ISO 8859-1'))
     return ''.join(format(byte, '08b') for byte in decoded_text)

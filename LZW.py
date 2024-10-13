@@ -26,25 +26,25 @@ def compress(uncompressed):
 
 def decompress(compressed):
     # Crear un diccionario para la descompresión
-    dictionary = {i: bin(i).encode("windows-1252") for i in range(256)}  # Inicializar el diccionario con caracteres ASCII
+    dictionary = {i: bin(i).encode("ISO 8859-1") for i in range(256)}  # Inicializar el diccionario con caracteres ASCII
     current_code = 256
 
     # Convertir el string comprimido en una lista de códigos enteros
     compressed_codes = [int(compressed[i:i + 8], 2) for i in range(0, len(compressed), 8)]
     
-    w = bin(compressed_codes[0]).encode("windows-1252")
-    decompressed = bytes(int(w.decode("windows-1252"), 2)).decode("windows-1252")
+    w = bin(compressed_codes[0]).encode("ISO 8859-1")
+    decompressed = bytes(int(w.decode("ISO 8859-1"), 2)).decode("ISO 8859-1")
 
     for code in compressed_codes[1:]:
-        char_code = bin(code).encode("windows-1252")
+        char_code = bin(code).encode("ISO 8859-1")
         if code in dictionary:
-            entry = dictionary[int(char_code.decode("windows-1252"), 2)]
-        elif int(char_code.decode("windows-1252")) == current_code:
+            entry = dictionary[int(char_code.decode("ISO 8859-1"), 2)]
+        elif int(char_code.decode("ISO 8859-1")) == current_code:
             entry = w + w[:8]
         else:
             raise ValueError("Código inválido en la entrada comprimida.")
         
-        decompressed += bytes((int(entry[j:j+8].decode("windows-1252"),2)) for j in range(0, len(entry), 8)).decode("windows-1252") 
+        decompressed += bytes((int(entry[j:j+8].decode("ISO 8859-1"),2)) for j in range(0, len(entry), 8)).decode("ISO 8859-1") 
 
         # Agregar la nueva entrada al diccionario
         dictionary[current_code] = w + entry[:8]

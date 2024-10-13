@@ -27,17 +27,17 @@ def file_compression(raw, compressed):
     except FileNotFoundError:
         return "Al menos uno de los archivos no existe"
 
-def read_bytes_as_windows_1252(filename):
+def read_bytes_as_ISO_8859(filename):
     try:
         with open(filename, 'rb') as file:
-            windows_1252_text = ''
+            ISO_8859_text = ''
             while True:
                 byte = file.read(1)  # Lee un byte del archivo
                 if not byte:
                     break  # Si no se lee ningún byte, se ha llegado al final del archivo
-                windows_1252_char = byte.decode('windows-1252')  # Intenta decodificar el byte como windows-1252
-                windows_1252_text += windows_1252_char  # Agrega el carácter windows-1252 al texto resultante
-            return windows_1252_text
+                ISO_8859_char = byte.decode('ISO 8859-1')  # Intenta decodificar el byte como ISO 8859-1
+                ISO_8859_text += ISO_8859_char  # Agrega el carácter ISO 8859-1 al texto resultante
+            return ISO_8859_text
     except FileNotFoundError:
         print(f"El archivo '{filename}' no se encuentra.")
 
@@ -67,7 +67,7 @@ def read_file_as_binary_string(filename):
         print(f"El archivo '{filename}' no se encuentra.")
 
 def save_header_to_file(filename, bwt_header):
-    byte_data = str(bwt_header).encode('windows-1252')
+    byte_data = str(bwt_header).encode('ISO 8859-1')
 
     try:
         with open(filename, 'wb') as file:
@@ -86,8 +86,8 @@ def get_header(header_bytes):
   aux=header_bytes[:8]
   # Convertimos la cadena de bits a una secuencia de bytes
   bytes_data = bytes(int(aux[i:i+8], 2) for i in range(0, len(aux), 8))
-  # Decodificamos los bytes en una cadena (str) utilizando la codificación windows-1252
-  header = bytes_data.decode('windows-1252')
+  # Decodificamos los bytes en una cadena (str) utilizando la codificación ISO 8859-1
+  header = bytes_data.decode('ISO 8859-1')
   #print(header_bytes[:8], header)
   return header
 
@@ -108,7 +108,7 @@ def int_to_binary_string(number):
     
     return binary_string
 
-def binary_to_windows_1252(binary_string):
+def binary_to_ISO_8859(binary_string):
     # Verifica que la longitud de la cadena sea un múltiplo de 8
     if len(binary_string) % 8 != 0:
         raise ValueError("La longitud de la cadena debe ser un múltiplo de 8.")
@@ -120,11 +120,11 @@ def binary_to_windows_1252(binary_string):
         byte_value = int(byte, 2)  # Convierte el byte a un valor entero
         byte_values.append(byte_value)
     
-    # Convierte los valores de bytes a una cadena usando la codificación Windows-1252
+    # Convierte los valores de bytes a una cadena usando la codificación ISO 8859-1
     ascii_bytes = bytes(byte_values)
-    windows_1252_string = ascii_bytes.decode('windows-1252')
+    ISO_8859_string = ascii_bytes.decode('ISO 8859-1')
     
-    return windows_1252_string
+    return ISO_8859_string
 
 def add_header(bytes):
     required_bits = (8-((len(bytes)+3) % 8 ))%8
