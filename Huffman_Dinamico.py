@@ -175,5 +175,4 @@ def dynamic_huffman_decode(encoded_text, symbols):
             byte_char = int(byte_str, 2)
             huffman_tree.update_tree(byte_str, symbols)
             decoded_text += bytes([byte_char])
-    #print(decoded_text.decode('ISO 8859-1'))
     return ''.join(format(byte, '08b') for byte in decoded_text)

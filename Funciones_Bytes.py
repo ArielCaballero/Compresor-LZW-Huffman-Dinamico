@@ -135,3 +135,17 @@ def add_header(bytes):
 def remove_header(bytes):
     added_bits = int(bytes[0:3],2)
     return bytes[3:len(bytes)-added_bits]
+
+def bits_to_bytes(bits):
+    # Verifica que la longitud de la cadena sea un múltiplo de 8
+    if len(bits) % 8 != 0:
+        raise ValueError("La cadena de bits debe tener una longitud múltiplo de 8.")
+
+    # Crea una lista de enteros a partir de la cadena de bits
+    byte_array = bytearray()
+    for i in range(0, len(bits), 8):
+        byte = bits[i:i+8]  # Toma un bloque de 8 bits
+        byte_array.append(int(byte,2))  # Convierte el bloque de bits a entero
+
+    # Convierte la lista de enteros a un objeto bytes
+    return bytes(byte_array)
