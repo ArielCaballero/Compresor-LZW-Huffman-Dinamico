@@ -1,6 +1,6 @@
-import Huffman_Dinamico2 as hd
-import LZW2 as lzw
-import Funciones_Bytes2 as FB
+import Huffman_Dinamico as hd
+import LZW as lzw
+import Funciones_Bytes as FB
 
 file = "original.txt"
 
