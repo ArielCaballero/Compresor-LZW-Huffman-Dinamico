@@ -1,3 +1,3 @@
-python compresor.py compress original.txt
-python compresor.py decompress compressed.lzwhd txt
-python compresor.py compare original.txt decompressed.txt
+python compresor.py compress ejemplo.txt
+python compresor.py decompress ejemplo.lzwhd
+python compresor.py compare ejemplo.txt 'ejemplo (1).txt'

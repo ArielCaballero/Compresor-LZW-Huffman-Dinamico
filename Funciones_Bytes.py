@@ -51,6 +51,11 @@ def save_binary_string_to_file(filename, binary_string):
 
     # Guardar los bytes en el archivo
     try:
+        i=0
+        while os.path.isfile(filename):
+            i+=1
+            name, extension = filename.split(".")
+            filename = name + " ({}).".format(i) + extension
         with open(filename, 'wb') as file:
             file.write(byte_data)
         print(f"El archivo '{filename}' ha sido guardado correctamente.")
@@ -149,3 +154,15 @@ def bits_to_bytes(bits):
 
     # Convierte la lista de enteros a un objeto bytes
     return bytes(byte_array)
+
+def set_extension (file):
+    extension =file.split(".")[1]
+    longextension = int_to_binary_string(len(extension))
+    extension = ''.join(format(byte, '08b') for byte in extension.encode("ISO 8859-1"))
+    extension = longextension + extension
+    return extension
+
+def get_extension (file):
+    length = int(file[0:8],2)
+    extension = binary_to_ISO_8859(file[8:8*(length+1)])
+    return extension, file[8*(length+1):]
